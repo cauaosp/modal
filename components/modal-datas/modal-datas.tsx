@@ -5,7 +5,7 @@ interface DadosProps extends HTMLAttributes<HTMLDivElement> {
   value: string;
 }
 
-export const DadosModal: FC<DadosProps> = ({ children, ...props }) => {
+export const ModalDatas: FC<DadosProps> = ({ children, ...props }) => {
   return (
     <div className={(props.className, "flex flex-col h-12")} {...props}>
       <span className="font-bold text-sm">{props.identification}</span>

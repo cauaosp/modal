@@ -1,4 +1,4 @@
-export const Shield = () => {
+export default function Shield() {
   return (
     <svg className="w-6 h-6 mr-2 fill-none">
       <path
@@ -10,4 +10,4 @@ export const Shield = () => {
       />
     </svg>
   );
-};
+}

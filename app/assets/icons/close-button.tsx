@@ -4,7 +4,10 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {}
 
 export const CloseButton: FC<ButtonProps> = ({ ...props }) => {
   return (
-    <button className="ml-auto w-6 h-6 fill-none mr-6 cursor-pointer" {...props}>
+    <button
+      className="ml-auto w-6 h-6 fill-none mr-6 cursor-pointer"
+      {...props}
+    >
       <svg>
         <path
           d="M5.00098 5.5L19 19.4991"
