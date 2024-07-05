@@ -12,51 +12,47 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+type Situation =
+  | "Respondida"
+  | "Aguardando resposta"
+  | "Erro pelo BC"
+  | "Processada pelo SPI"
+  | "Aguardando processamento";
+
+export type Messages = {
+  time: string;
+  messageType: string;
+  channel: string;
+  flow: string;
+  situation: "Respondida" | "Aguardando resposta" | "Erro pelo BC" | "Processada pelo SPI" | "Aguardando processamento";
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Messages>[] = [
   {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "time",
+    header: "Data/Hora",
   },
   {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      )
-    },
+    accessorKey: "messageType",
+    header: ({column}) => <div className="text-right">Tipo de mensagem</div>,
   },
   {
-    accessorKey: "amount",
-    header: ({column}) => <div className="text-right">Amount</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
-      const formatted = new Intl.NumberFormat("en-US", {
-        style: "currency",
-        currency: "USD",
-      }).format(amount);
-
-      return <div className="text-right font-medium">{formatted}</div>;
-    },
+    accessorKey: "channel",
+    header: ({column}) => <div className="text-right">Canal</div>,
+  },
+  {
+    accessorKey: "flow",
+    header: ({column}) => <div className="text-right">Fluxo</div>,
+  },
+  {
+    accessorKey: "situation",
+    header: ({column}) => <div className="text-right">Situação</div>,
   },
   {
     id: "actions",
+    header: ({column}) => <div className="text-right">Ações</div>,
     cell: ({ row }) => {
-      const payment = row.original
+      const message = row.original
  
       return (
         <DropdownMenu>
@@ -69,7 +65,7 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(message.actions)}
             >
               Copy payment ID
             </DropdownMenuItem>

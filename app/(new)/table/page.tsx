@@ -1,14 +1,4 @@
 import {
-  ColumnDef,
-  SortingState,
-  flexRender,
-  getCoreRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
-  useReactTable,
-} from "@tanstack/react-table";
-
-import {
   Table,
   TableBody,
   TableCell,
@@ -17,89 +7,119 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-import { Button } from "@/components/ui/button";
-import React from "react";
-import { columns, Payment } from "@/components/table/columns/columns";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+
 import { CircleCheck } from "@/app/assets/icons/checked";
 import { Eye } from "@/app/assets/icons/eye";
-import { FileVideo } from "lucide-react";
+import { Filters } from "@/app/assets/icons/filters";
+import { Refresh } from "@/app/assets/icons/refresh";
+import { Messages } from "@/components/table/columns/columns";
+import { SituationTypes } from "@/components/table/situation-types/situation-types";
 
-async function getData(): Promise<Payment[]> {
+async function getData(): Promise<Messages[]> {
   // Fetch data from your API here.
   return [
     {
-      id: "caua paiva",
-      amount: 100,
-      status: "pending",
-      email: "caua@example.com",
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Respondida",
     },
     {
-      id: "Igor Paiva",
-      amount: 50,
-      status: "pending",
-      email: "igor@example.com",
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Aguardando resposta",
     },
     {
-      id: "Fernando Paiva",
-      amount: 25,
-      status: "pending",
-      email: "fernando@example.com",
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Erro pelo BC",
     },
     {
-      id: "Maria Paiva",
-      amount: 12.5,
-      status: "pending",
-      email: "maria@example.com",
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Processada pelo SPI",
     },
     {
-      id: "Alerrandro Paiva",
-      amount: 6.25,
-      status: "pending",
-      email: "alerrando@example.com",
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Aguardando processamento",
+    },
+    {
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Respondida",
+    },
+    {
+      time: "18/06/2024",
+      messageType: "Camt.053",
+      channel: "Canal Primário",
+      flow: "Enviada",
+      situation: "Respondida",
     },
   ];
 }
 
-interface DataTableProps<TData, TValue> {
-  columnsTable: ColumnDef<TData, TValue>[];
-  dataTable: TData[];
-}
-
 export default async function TableFigma() {
-  // const datasOfTables = await getData();
-
-  // const table = useReactTable({
-  //   datasOfTables,
-  //   columns,
-  //   getCoreRowModel: getCoreRowModel(),
-  //   getPaginationRowModel: getPaginationRowModel(),
-  //   getSortedRowModel: getSortedRowModel(),
-  // });
-
   return (
-    <div className="border-2 border-zinc-400 rounded-sm max-w-5xl m-auto my-10">
-      <div className="relative w-full overflow-auto">
-        <Table >
-          <TableHeader className="bg-stone-100">
+    <div className="bg-stone-100 py-10">
+      <div className="w-10/12 mx-auto border rounded-md overflow-hidden text-stone-600 text-sm">
+        <div className="bg-white py-4 px-5 flex justify-end items-center gap-6 font-bold text-xs">
+          <span className="w-fit flex justify-between items-center gap-2 cursor-pointer">
+            <Filters className="w-4 h-4" />
+            Filtros
+          </span>
+          <span className="w-fit flex justify-between items-center gap-2 cursor-pointer">
+            <Refresh className="w-4 h-4" />
+            Atualizar
+          </span>
+        </div>
+        <Table>
+          <TableHeader>
             <TableRow>
-              <TableHead>Data/Hora</TableHead>
-              <TableHead>Tipo de mensagem</TableHead>
-              <TableHead>Canal</TableHead>
-              <TableHead>Fluxo</TableHead>
-              <TableHead>Situação</TableHead>
-              <TableHead>Ações</TableHead>
+              <TableHead className="font-bold">Data/Hora</TableHead>
+              <TableHead className="font-bold">Tipo de mensagem</TableHead>
+              <TableHead className="font-bold">Canal</TableHead>
+              <TableHead className="font-bold">Fluxo</TableHead>
+              <TableHead className="font-bold">Situação</TableHead>
+              <TableHead className="font-bold">Ações</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="bg-white">
             <TableRow>
               <TableCell>18/06/2024</TableCell>
               <TableCell>Camt.053</TableCell>
               <TableCell>Canal Primário</TableCell>
               <TableCell>Enviada</TableCell>
               <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
+                <SituationTypes situation="Respondida" />
               </TableCell>
               <TableCell className="cursor-pointer pl-6">
                 <Eye className="w-6 h-6" />
@@ -111,9 +131,7 @@ export default async function TableFigma() {
               <TableCell>Canal Primário</TableCell>
               <TableCell>Enviada</TableCell>
               <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
+                <SituationTypes situation="Aguardando resposta" />
               </TableCell>
               <TableCell className="cursor-pointer pl-6">
                 <Eye className="w-6 h-6" />
@@ -125,9 +143,7 @@ export default async function TableFigma() {
               <TableCell>Canal Primário</TableCell>
               <TableCell>Enviada</TableCell>
               <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
+                <SituationTypes situation="Erro pelo BC" />
               </TableCell>
               <TableCell className="cursor-pointer pl-6">
                 <Eye className="w-6 h-6" />
@@ -139,9 +155,7 @@ export default async function TableFigma() {
               <TableCell>Canal Primário</TableCell>
               <TableCell>Enviada</TableCell>
               <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
+                <SituationTypes situation="Processada pelo SPI" />
               </TableCell>
               <TableCell className="cursor-pointer pl-6">
                 <Eye className="w-6 h-6" />
@@ -153,9 +167,7 @@ export default async function TableFigma() {
               <TableCell>Canal Primário</TableCell>
               <TableCell>Enviada</TableCell>
               <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
+                <SituationTypes situation="Aguardando processamento" />
               </TableCell>
               <TableCell className="cursor-pointer pl-6">
                 <Eye className="w-6 h-6" />
@@ -167,9 +179,7 @@ export default async function TableFigma() {
               <TableCell>Canal Primário</TableCell>
               <TableCell>Enviada</TableCell>
               <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
+                <SituationTypes situation="Respondida" />
               </TableCell>
               <TableCell className="cursor-pointer pl-6">
                 <Eye className="w-6 h-6" />
@@ -261,6 +271,46 @@ export default async function TableFigma() {
             </TableRow>
           </TableBody>
         </Table>
+        <div className="flex items-center justify-between p-4">
+          <div className="flex items-center gap-2">
+            <span>Rows per page:</span>
+            <Select defaultValue="10">
+              <SelectTrigger className="w-20">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="10">10</SelectItem>
+                <SelectItem value="25">25</SelectItem>
+                <SelectItem value="50">50</SelectItem>
+                <SelectItem value="100">100</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <Pagination className="w-fit mx-0">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </div>
       </div>
     </div>
   );
