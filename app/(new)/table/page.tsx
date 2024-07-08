@@ -22,75 +22,124 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue
+  SelectValue,
 } from "@/components/ui/select";
 
-import { CircleCheck } from "@/app/assets/icons/checked";
 import { Eye } from "@/app/assets/icons/eye";
 import { Filters } from "@/app/assets/icons/filters";
 import { Refresh } from "@/app/assets/icons/refresh";
-import { Messages } from "@/components/table/columns/columns";
 import { SituationTypes } from "@/components/table/situation-types/situation-types";
 
-async function getData(): Promise<Messages[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Respondida",
-    },
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Aguardando resposta",
-    },
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Erro pelo BC",
-    },
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Processada pelo SPI",
-    },
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Aguardando processamento",
-    },
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Respondida",
-    },
-    {
-      time: "18/06/2024",
-      messageType: "Camt.053",
-      channel: "Canal Primário",
-      flow: "Enviada",
-      situation: "Respondida",
-    },
-  ];
-}
+const getTableDatas = [
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Enviada",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Enviada",
+    situation: "Aguardando resposta",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Enviada",
+    situation: "Erro pelo BC",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Processada pelo SPI",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Aguardando processamento",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+  {
+    time: "18/06/2024",
+    messageType: "Camt.053",
+    channel: "Canal Primário",
+    flow: "Recebida",
+    situation: "Respondida",
+  },
+];
 
 export default async function TableFigma() {
+  function renderizarLinhas() {
+    return getTableDatas.map((msg) => {
+      return (
+        <TableRow className="">
+          <TableCell>{msg.time.replaceAll("/", "-")}</TableCell>
+          <TableCell>{msg.messageType}</TableCell>
+          <TableCell>{msg.channel}</TableCell>
+          <TableCell>{msg.flow}</TableCell>
+          <TableCell>
+            <SituationTypes situation={msg.situation} />
+          </TableCell>
+          <TableCell className=" cursor-pointer pl-6">
+            <Eye className="w-6 h-6" />
+          </TableCell>
+        </TableRow>
+      );
+    });
+  }
+
   return (
     <div className="bg-stone-100 py-10">
-      <div className="w-10/12 mx-auto border rounded-md overflow-hidden text-stone-600 text-sm">
+      <div className="w-10/12 mx-auto border rounded-lg overflow-hidden text-stone-600 text-sm">
         <div className="bg-white py-4 px-5 flex justify-end items-center gap-6 font-bold text-xs">
           <span className="w-fit flex justify-between items-center gap-2 cursor-pointer">
             <Filters className="w-4 h-4" />
@@ -112,164 +161,7 @@ export default async function TableFigma() {
               <TableHead className="font-bold">Ações</TableHead>
             </TableRow>
           </TableHeader>
-          <TableBody className="bg-white">
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <SituationTypes situation="Respondida" />
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <SituationTypes situation="Aguardando resposta" />
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <SituationTypes situation="Erro pelo BC" />
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <SituationTypes situation="Processada pelo SPI" />
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <SituationTypes situation="Aguardando processamento" />
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <SituationTypes situation="Respondida" />
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>18/06/2024</TableCell>
-              <TableCell>Camt.053</TableCell>
-              <TableCell>Canal Primário</TableCell>
-              <TableCell>Enviada</TableCell>
-              <TableCell>
-                <span className="bg-emerald-100 text-green-500 font-bold px-2 w-fit h-6 text-sm text-green bg-background-surface-success flex justify-center items-center rounded-sm">
-                  <CircleCheck className="mr-1 w-4 h-4" /> Respondida
-                </span>
-              </TableCell>
-              <TableCell className="cursor-pointer pl-6">
-                <Eye className="w-6 h-6" />
-              </TableCell>
-            </TableRow>
-          </TableBody>
+          <TableBody className="bg-white">{renderizarLinhas()}</TableBody>
         </Table>
         <div className="flex items-center justify-between p-4">
           <div className="flex items-center gap-2">
